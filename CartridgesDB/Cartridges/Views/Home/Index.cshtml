@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using Cartridges.Web.Code
+@using Cartridges.Web.Models.ViewModel
+
+
+<div class="border-dark text-body">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <ul class="list-group">
+            <li class="list-group-item ">
+                <a class="text-dark" asp-area="" asp-controller="Request" asp-action="Requests">Служебки на замену</a>
+            </li>
+            @if (User.IsInRole("admin"))
+            {
+                <li class="list-group-item ">
+                    <a class="text-dark" asp-area="" asp-controller="Report" asp-action="Index">Отчеты</a>
+                </li>
+            }
+
+            <li class="list-group-item  ">
+                <a class="text-dark" href="#" role="button" data-toggle="dropdown" id="navbarDropdown">База</a>
+                <ul>
+                    <li class="list-group-item">
+                        <a class="text-dark" asp-area="" asp-controller="Printer" asp-action="PrinterCompanies">Принтера</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="text-dark" asp-area="" asp-controller="CartridgeModel" asp-action="CartridgeModels">Модели картриджей</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="text-dark" asp-area="" asp-controller="CartridgeIncome" asp-action="Index">Поступления картриджей</a>
+                    </li>
+                    @if (User.IsInRole("admin"))
+                    {
+                    <li class="list-group-item">
+                        <a class="text-dark dropdown-item" asp-area="" asp-controller="DB" asp-action="Index">Обновление базы</a>
+
+                    </li>
+                    }
+                </ul>
+            </li>
+            <li class="list-group-item  ">
+                    <a class="text-dark" href="#" role="button" data-toggle="dropdown" id="navbarDropdown">Остальное</a>
+                <ul>
+                    <li class="list-group-item">
+                        <a class="text-dark" asp-area="" asp-controller="Building" asp-action="Buildings">Сооружения</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="text-dark" asp-area="" asp-controller="Department" asp-action="Departments">Отделы</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="list-group-item ">
+                <a class="text-dark" asp-area="" asp-controller="Account" asp-action="YourAccount">Настройки учетной записи</a>
+            </li>
+            @if (User.IsInRole("admin"))
+            {
+                <li class="list-group-item ">
+                    <a class="text-dark" asp-area="" asp-controller="Account" asp-action="Users">Пользователи</a>
+                </li>
+            }
+
+        </ul>
+    }
+    else
+    {
+        <h4 class="align-middle">Авторизуйтсь, чтобы иметь доступ к системе!</h4>
+        <div>Или обратитесть к администратору для получения доступа.</div>
+    }
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-function", AreaLabeledId = "modal-action-function-label", Size = ModalSize.Large })

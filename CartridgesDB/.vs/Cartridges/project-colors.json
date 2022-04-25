@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "87f9e9a1-bf2f-488e-ab7a-326bac4de314": {
+      "ProjectGuid": "87f9e9a1-bf2f-488e-ab7a-326bac4de314",
+      "DisplayName": "Cartridges.Web",
+      "ColorIndex": 0
+    },
+    "0f77e669-3171-4eae-8f1f-d50429f8c946": {
+      "ProjectGuid": "0f77e669-3171-4eae-8f1f-d50429f8c946",
+      "DisplayName": "Cartridges.Repo",
+      "ColorIndex": 1
+    },
+    "7e969ca1-e8a6-4f93-bb8e-fdcb0725ae8a": {
+      "ProjectGuid": "7e969ca1-e8a6-4f93-bb8e-fdcb0725ae8a",
+      "DisplayName": "Cartridges.Ser",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

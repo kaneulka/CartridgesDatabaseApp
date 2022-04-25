@@ -1,0 +1,13 @@
+﻿@model RequestViewModel
+@using Cartridges.Web.Models.ViewModel
+@using Cartridges.Web.Models
+
+<form asp-action="DeleteRequest" role="form">
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Удалить служебку?" })
+
+    <div class="modal-body">
+        <input asp-for="Id" />
+        Вы уверены, что хотите удалить @Model.Name от @Model.AddedDate?
+    </div>
+    @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Удалить" })
+</form>

@@ -1,0 +1,33 @@
+﻿@model PrinterModelViewModel
+@using Cartridges.Web.Models.ViewModel
+@using Cartridges.Web.Models
+
+<form asp-action="AddPrinterModel" role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Создание модели" })
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <input asp-for="PrinterCompanyId" type="hidden" />
+                <div class="form-group">
+                    <span asp-validation-for="Name"></span><br />
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+            </div>
+            @if (Model.CartridgeModels != null)
+            {
+                @foreach (var item in Model.CartridgeModels)
+                {
+                <div class="col-3">
+                    <div class="form-group">
+                        <span >@item.Name @item.Bill.Name</span>
+                        <input type="checkbox" name="cartridgeModelIds" value="@item.Id" class="btn-check" />
+                    </div>
+                </div>                
+                }           
+            }
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>
+

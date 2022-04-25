@@ -1,0 +1,13 @@
+﻿@model AccountViewModel
+@using Cartridges.Web.Models.AccountModels
+@using Cartridges.Web.Models.ViewModel
+
+<form asp-action="DeleteUser" role="form">
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Удаление пользователя" })
+
+    <div class="modal-body">
+        <input asp-for="Id" />
+        Вы уверены, что хотите удалить @Model.UserName?
+    </div>
+    @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Удалить" })
+</form>

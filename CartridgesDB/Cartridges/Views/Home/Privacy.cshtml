@@ -1,0 +1,9 @@
+﻿
+@using Cartridges.Web.Code
+@using Cartridges.Web.Models.ViewModel
+@{ ViewData["Title"] = "Privacy Policy"; }
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-function", AreaLabeledId = "modal-action-function-label", Size = ModalSize.Large })

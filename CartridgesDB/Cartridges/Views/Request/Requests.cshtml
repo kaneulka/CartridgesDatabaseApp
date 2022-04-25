@@ -1,0 +1,278 @@
+﻿@model RequestsViewModel
+@using Cartridges.Web.Models.ViewModel
+@using Cartridges.Web.Code
+@using Cartridges.Web.Models
+
+@{ ViewData["Title"] = "Служебки на замену картриджа";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pageNumber = ViewBag.Page;
+    var sortType = ViewBag.SortType;
+    }
+
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"><h1>Служебки на замену картриджа</h1></div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (User.IsInRole("admin"))
+                                {
+                            <div class="col-lg-3">
+                                <a id="createRequestModal" data-toggle="modal" href="#" data-target="#modal-action-function" class="btn btn-pill btn-block btn-primary">
+                                    Добавить служебку
+                                </a>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <form class="form-inline mt-3 mb-3" asp-action="UpdateFromDocs" asp-controller="Request" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <input type="checkbox" name="isBill102" value="true" class="btn-check" />&nbsp;
+                                            <span><b>Номер счета:</b>&nbsp;Забаланс?&nbsp;</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Выберите служебки для обработки <b>".docx"</b></label>
+                                            <input class="ml-3" type="file" name="uploadedFiles" multiple />
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-success btn-pill">Загрузить</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                                }
+                            }
+                            @if (Model.FailedUploadingDocxs.Count() > 0)
+                            {
+                                <div class="col-lg-12">
+                                    <h3>Следующие служебные записки не были обработаны:</h3>
+                                    <ul class="list-group-item">
+                                        @foreach (var d in Model.FailedUploadingDocxs)
+                                        {
+                                            <li>@d</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            <div class="col-lg-9">
+                                <form asp-controller="Request" asp-action="Requests" method="get" class="form-inline">
+                                    <div class="form-group mb-0 mr-3">
+                                        <select name="sortType" id="sortType" class="form-control" data-sortType="@ViewBag.SortType">
+                                            <option id="sortType-0" value="0">По дате добавления</option>
+                                            <option id="sortType-1" value="1">По дате добавления (в обратном порядке)</option>
+                                            <option id="sortType-2" value="2">По дате изменения</option>
+                                            <option id="sortType-3" value="3">По дате изменения (в обратном порядке)</option>
+                                            <option id="sortType-4" value="4">По названию</option>
+                                            <option id="sortType-5" value="5">По названию  (в обратном порядке)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <input type="text" name="searchString" class="form-control mr-3 inputSearch" placeholder="Поиск..." />
+                                        <button type="submit" class="btn btn-dark btn-pill btn-sm btnSearch">
+                                            <i class="c-icon cil-search">Искать</i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Дата добавления</th>
+                                    <th>Состояние картриджа</th>
+                                    <th>Действие</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Requests)
+                                {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AddedDate)</td>
+                                    <td>
+                                        @if (item.Defective == false)
+                                        {
+                                    <form id="switchDefectiveValue-@item.Id" asp-action="SwitchDefectiveValue" asp-controller="Request" method="post" asp-route-requestId="@item.Id" asp-route-page="@pageNumber" asp-route-sortType="@sortType" style="display:none">
+                                    </form>
+                                                        <a class="btn btn-success" href="javascript:{}" onclick="document.getElementById('switchDefectiveValue-@item.Id').submit(); return false;">
+                                                            <i class="c-icon cil-search"> Исправен</i>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                    <form id="switchDefectiveValue-@item.Id" asp-action="SwitchDefectiveValue" asp-controller="Request" method="post" asp-route-requestId="@item.Id" asp-route-page="@pageNumber" asp-route-sortType="@sortType" style="display:none">
+                                    </form>
+                                                        <a class="btn btn-danger" href="javascript:{}" onclick="document.getElementById('switchDefectiveValue-@item.Id').submit(); return false;">
+                                                            <i class="c-icon cil-search">Неисправен</i>
+                                                        </a>}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                            <a data-toggle="modal" href="#" data-id="@item.Id" data-target="#modal-action-function" class="btn btn-info infoRequestModal">
+                                                <i class="c-icon cil-info">Подробнее</i>
+                                            </a>
+
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                            @if (User.IsInRole("admin"))
+                                        {
+                                            <form id="copy-@item.Id" asp-action="Copy" asp-controller="Request" method="post" asp-route-requestId="@item.Id" asp-route-page="@pageNumber" asp-route-sortType="@sortType" style="display:none">
+                                            </form>
+                                            <a class="btn btn-warning" href="javascript:{}" onclick="document.getElementById('copy-@item.Id').submit(); return false;">
+                                                <i class="c-icon cil-search">Продублировать</i>
+                                            </a>
+                                            <a data-toggle="modal" href="#" data-id="@item.Id" data-target="#modal-action-function" class="btn btn-danger deleteRequestModal">
+                                                <i class="c-icon cil-trash">Удалить</i>
+                                            </a>}}
+                                        </div>
+                                    </td>
+                                </tr>}
+                            </tbody>
+                        </table>
+                        <nav>
+                            <ul class="pagination">
+                                @if (Model.PageViewModel.HasPreviousPage)
+                                {
+                    <li class="page-item"><a class="page-link" asp-controller="Request" asp-action="Requests" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">Назад</a></li>}
+                                @if ((Model.PageViewModel.PageNumber - 2) > 0)
+                                {
+                                    string fp = "";
+                    @if (Model.PageViewModel.PageNumber - 2 > 1)
+                    {
+                        fp = "...";
+                    }
+                                    <li class="page-item"><a class="page-link" asp-controller="Request" asp-action="Requests">1 @fp</a></li>}
+
+
+                                @if (Model.PageViewModel.HasPreviousPage)
+                                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Request" asp-action="Requests" asp-route-page="@(Model.PageViewModel.PageNumber - 1)">
+                            @(Model.PageViewModel.PageNumber - 1)
+                        </a>
+                    </li>}
+                                <li class="page-item active">
+                                    <a class="page-link" asp-controller="Request" asp-action="Requests" asp-route-page="@Model.PageViewModel.PageNumber">
+                                        @Model.PageViewModel.PageNumber
+                                    </a>
+                                </li>
+                                @if (Model.PageViewModel.HasNextPage)
+                                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Request" asp-action="Requests" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">
+                            @(Model.PageViewModel.PageNumber + 1)
+                        </a>
+                    </li>}
+
+                                @if ((Model.PageViewModel.PageNumber + 1) < Model.PageViewModel.TotalPages)
+                                {
+                                    string fp = "";
+                    @if (Model.PageViewModel.PageNumber + 2 < Model.PageViewModel.TotalPages)
+                    {
+                        fp = "...";
+                    }
+                                    <li class="page-item">
+                                        <a class="page-link" asp-controller="Request" asp-action="Requests" asp-route-page="@Model.PageViewModel.TotalPages">
+                                            @fp @Model.PageViewModel.TotalPages
+                                        </a>
+                                    </li>}
+                                @if (Model.PageViewModel.HasNextPage)
+                                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Request" asp-action="Requests" asp-route-page="@(Model.PageViewModel.PageNumber + 1)">
+                            Вперед
+                        </a>
+                    </li>}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-function", AreaLabeledId = "modal-action-function-label", Size = ModalSize.Large })
+
+@section scripts
+    {
+    <script>
+        $('#createRequestModal').click(function (e) {
+            e.preventDefault();
+            $('#modal-content').load('@Url.Action("AddRequest", "Request")');
+        });
+        $('.infoRequestModal').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            name = encodeURIComponent(id);
+            $('#modal-content').load('@Url.Action("RequestInfo", "Request")?id=' + id);
+        });
+        $('.deleteRequestModal').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            name = encodeURIComponent(id);
+            $('#modal-content').load('@Url.Action("DeleteRequest", "Request")?id=' + id);
+        });
+
+        function generateOptions(list) {
+            var options = '';
+            $.each(list, function (i, item) {
+                options += `<option id="cartridgeModelId" value="` + item.Id + `">` + item.Name + ` ` + item.BillName + `</option>`;
+            });
+
+            $("#cartidge-values-list").html(options);
+        }
+
+        $(document).on('change', "#printer-list", function () {
+            var printerId = $(this).find('option:selected').val();
+            var url = '/Request/GetCartridges?printerId=' + printerId;
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    generateOptions(data);
+                },
+
+                failure: function (data) {
+                    alert(data.responseText);
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
+
+            });
+        });
+
+        var sortType = $('#sortType').attr("data-sortType");
+
+        switch (sortType) {
+            case "0":
+                $('#sortType-0').attr("selected", "selected");
+                break;
+            case "1":
+                $('#sortType-1').attr("selected", "selected");
+                break;
+            case "2":
+                $('#sortType-2').attr("selected", "selected");
+                break;
+            case "3":
+                $('#sortType-3').attr("selected", "selected");
+                break;
+            case "4":
+                $('#sortType-4').attr("selected", "selected");
+                break;
+            case "5":
+                $('#sortType-5').attr("selected", "selected");
+                break;
+        }
+    </script>
+}
+

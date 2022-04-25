@@ -1,0 +1,29 @@
+﻿@model CartridgeIncomeViewModel
+@using Cartridges.Web.Models.ViewModel
+@using Cartridges.Web.Models
+
+<form asp-action="AddCartridgeIncome" role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Создать поставку" })
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <span asp-validation-for="IncomeQuantity"></span><br />
+                    <label asp-for="IncomeQuantity"></label>
+                    <input asp-for="IncomeQuantity" class="form-control" />
+                </div>
+                <h3>Выбрать номер счета</h3>
+                <span asp-validation-for="CartridgeModelId"></span><br />
+                <select class="form-control" asp-for="CartridgeModelId">
+                    <option value="0">-- Выберите картридж --</option>
+                    @foreach (var c in Model.Cartridges)
+                    {
+            <option value="@c.Id">@c.Name, Номер счета - @c.Bill.Name</option>}
+                </select>
+
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>
+

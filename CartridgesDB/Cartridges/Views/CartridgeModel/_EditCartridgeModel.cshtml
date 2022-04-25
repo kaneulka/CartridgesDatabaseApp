@@ -1,0 +1,68 @@
+﻿@model CartridgeModelViewModel
+@using Cartridges.Web.Models.ViewModel
+@using Cartridges.Web.Models
+
+<form asp-action="EditCartridgeModel" role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Редактировать модель картриджа" })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="col-12">
+                <input asp-for="Id" />
+                <div class="form-group">
+                    <span asp-validation-for="Name"></span><br />
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="NomenclatureNumber"></span><br />
+                    <label asp-for="NomenclatureNumber"></label>
+                    <input asp-for="NomenclatureNumber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="Quantity"></span><br />
+                    <label asp-for="Quantity"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                </div>
+                <h3>Выбрать номер счета</h3>
+                <span asp-validation-for="BillId"></span><br />
+                <select class="form-control" asp-for="BillId">
+                    <option value="0">-- Выберите счет --</option>
+                    @foreach (var c in Model.Bills)
+                    {
+                        <option value="@c.Id">@c.Name </option>
+                    }
+                </select>
+                <h3>Выбрать модель принтера</h3>
+
+
+            </div>@if (Model.PrinterModels != null)
+            {
+                @foreach (var item in Model.PrinterModels)
+                {
+                    <div class="col-3">
+                        <div class="form-group">
+                            <span>@item.PrinterCompany.Name @item.Name</span>
+
+                            @if (Model.CheckedPrinterModels != null)
+                            {
+                                @if (Model.CheckedPrinterModels.Contains(item.Id))
+                                {
+                                    <input type="checkbox" checked name="printerModelIds" value="@item.Id" class="btn-check" />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" name="printerModelIds" value="@item.Id" class="btn-check" />
+                                }
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="printerModelIds" value="@item.Id" class="btn-check" />
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>

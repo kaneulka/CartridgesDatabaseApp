@@ -1,0 +1,14 @@
+D:\Cartridges\Cartridges.Ser\bin\Release\netcoreapp3.1\Cartridges.Ser.deps.json
+D:\Cartridges\Cartridges.Ser\bin\Release\netcoreapp3.1\Cartridges.Ser.dll
+D:\Cartridges\Cartridges.Ser\bin\Release\netcoreapp3.1\Cartridges.Ser.pdb
+D:\Cartridges\Cartridges.Ser\bin\Release\netcoreapp3.1\Cartridges.Data.dll
+D:\Cartridges\Cartridges.Ser\bin\Release\netcoreapp3.1\Cartridges.Repo.dll
+D:\Cartridges\Cartridges.Ser\bin\Release\netcoreapp3.1\Cartridges.Data.pdb
+D:\Cartridges\Cartridges.Ser\bin\Release\netcoreapp3.1\Cartridges.Repo.pdb
+D:\Cartridges\Cartridges.Ser\obj\Release\netcoreapp3.1\Cartridges.Ser.csprojAssemblyReference.cache
+D:\Cartridges\Cartridges.Ser\obj\Release\netcoreapp3.1\Cartridges.Ser.AssemblyInfoInputs.cache
+D:\Cartridges\Cartridges.Ser\obj\Release\netcoreapp3.1\Cartridges.Ser.AssemblyInfo.cs
+D:\Cartridges\Cartridges.Ser\obj\Release\netcoreapp3.1\Cartridges.Ser.csproj.CoreCompileInputs.cache
+D:\Cartridges\Cartridges.Ser\obj\Release\netcoreapp3.1\Cartridges.Ser.csproj.CopyComplete
+D:\Cartridges\Cartridges.Ser\obj\Release\netcoreapp3.1\Cartridges.Ser.dll
+D:\Cartridges\Cartridges.Ser\obj\Release\netcoreapp3.1\Cartridges.Ser.pdb

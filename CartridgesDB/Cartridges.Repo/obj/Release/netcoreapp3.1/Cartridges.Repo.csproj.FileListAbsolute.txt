@@ -1,0 +1,15 @@
+D:\Cartridges\Cartridges.Repo\bin\Release\netcoreapp3.1\Cartridges.Repo.deps.json
+D:\Cartridges\Cartridges.Repo\bin\Release\netcoreapp3.1\Cartridges.Repo.runtimeconfig.json
+D:\Cartridges\Cartridges.Repo\bin\Release\netcoreapp3.1\Cartridges.Repo.runtimeconfig.dev.json
+D:\Cartridges\Cartridges.Repo\bin\Release\netcoreapp3.1\Cartridges.Repo.dll
+D:\Cartridges\Cartridges.Repo\bin\Release\netcoreapp3.1\Cartridges.Repo.pdb
+D:\Cartridges\Cartridges.Repo\bin\Release\netcoreapp3.1\Cartridges.Data.dll
+D:\Cartridges\Cartridges.Repo\bin\Release\netcoreapp3.1\Cartridges.Data.pdb
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.csprojAssemblyReference.cache
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.AssemblyInfoInputs.cache
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.AssemblyInfo.cs
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.csproj.CoreCompileInputs.cache
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.csproj.CopyComplete
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.dll
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.pdb
+D:\Cartridges\Cartridges.Repo\obj\Release\netcoreapp3.1\Cartridges.Repo.genruntimeconfig.cache

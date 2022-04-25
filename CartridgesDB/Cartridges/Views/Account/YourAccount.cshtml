@@ -1,0 +1,56 @@
+﻿@using Cartridges.Web.Models.AccountModels
+@model AccountViewModel
+@{ ViewData["Title"] = "Настройки пользователя";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+<section class="main-about-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section-title">Настройки пользователя</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container user-profile-global">
+        <div class="row">
+            <div class="col-8">
+                <div class="section-wrapper user-profile">
+                    <form asp-controller="Account" asp-action="YourAccount" role="form" class="user-form">
+                        <div class="user-form__col">
+                            <input asp-for="Id" />
+                            <div class="user-form__group">
+                                <label asp-for="UserName" class="user-form__label">Имя пользователя</label>
+                                <input asp-for="UserName" type="text" class="user-form__input" value="@Model.UserName" autocomplete="new-password">
+                                <span asp-validation-for="UserName"></span>
+                            </div>
+                        </div>
+                        <div class="user-form__col">
+                            <div class="user-form__group">
+                                <label asp-for="OldPassword" class="user-form__label">Текущий пароль</label>
+                                <input asp-for="OldPassword" type="password" class="user-form__input" autocomplete="new-password">
+                                <span asp-validation-for="OldPassword"></span>
+                            </div>
+                            <div class="user-form__group">
+                                <label asp-for="NewPassword" for="" class="user-form__label">Новый пароль</label>
+                                <input asp-for="NewPassword" type="password" class="user-form__input" autocomplete="new-password">
+                                <span asp-validation-for="NewPassword"></span>
+                            </div>
+                            <div class="user-form__group">
+                                <label asp-for="PasswordConfirm" class="user-form__label">Подтвердите новый пароль</label>
+                                <input asp-for="PasswordConfirm" type="password" class="user-form__input" autocomplete="new-password">
+                                <span asp-validation-for="PasswordConfirm"></span>
+                            </div>
+                            <div class="user-form__group">
+                                <label for="" class="user-form__label user-form__label_hidden">Hidden</label>
+                                <button class="user-form__btn" type="submit">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- USER-PROFILE END -->

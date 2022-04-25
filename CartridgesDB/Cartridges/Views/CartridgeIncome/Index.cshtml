@@ -1,0 +1,150 @@
+﻿@model List<CartridgeIncomeViewModel>
+@using Cartridges.Web.Models
+@using Cartridges.Web.Code
+@using Cartridges.Web.Models.ViewModel
+
+@{ ViewData["Title"] = "Поставки";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"><h1>Поставки</h1></div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                        @if (User.IsInRole("admin"))
+                        {
+                            <div class="col-lg-3">
+                                <a id="createCartridgeIncomeModal" data-toggle="modal" href="#" data-target="#modal-action-function" class="btn btn-pill btn-block btn-primary">
+                                    Добавить поставку
+                                </a>
+                            </div><br />
+                                                <div>
+                                                    <span>Файл поставки должен состоять из:</span>                      <br>
+                                                    <span> <b>1 столбца</b> - Модель картриджа;</span>                  <br>
+                                                    <span> <b>2 столбца</b> - Номер счета (102/105);</span>             <br>
+                                                    <span> <b>3 столбца</b> - Количество картриджей.</span>            <br>
+                                                </div>
+                                                                    <div class="col-lg-12">
+                                                                        <form class="form-inline mt-3 mb-3" asp-action="ReturnIncomeFile" asp-controller="CartridgeIncome" method="post" enctype="multipart/form-data">
+                                                                            <div class="form-group">
+                                                                                <label class="col-form-label">Пример файла &nbsp;</label>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <button type="submit" class="btn btn-success btn-pill">Загрузить</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>}}
+                            <div class="col-lg-9">
+                                <form asp-controller="CartridgeIncome" asp-action="CartridgeIncomes" method="get" class="form-inline">
+                                    <div class="form-group mb-0 mr-3">
+                                        <select name="sortType" id="sortType" class="form-control" data-sortType="@ViewBag.SortType">
+                                            <option id="sortType-0" value="0">По названию</option>
+                                            <option id="sortType-1" value="1">По названию (в обратном порядке)</option>
+                                            <option id="sortType-0" value="2">По дате добавления</option>
+                                            <option id="sortType-1" value="3">По дате добавления (в обратном порядке)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <button type="submit" class="btn btn-dark btn-pill btn-sm btnSearch">
+                                            <i class="c-icon cil-search">Отсортировать</i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("admin"))
+                            {
+                        <div class="row mb-3">
+                            <div class="col-lg-12">
+                                <form class="form-inline mt-3 mb-3" asp-action="CartridgeIncomes" asp-controller="CartridgeIncome" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Файл поставок картриджей</label>
+                                        <input class="ml-3" type="file" name="uploadedFile" />
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success btn-pill">Загрузить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                            }
+                        }
+                        
+                        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Картридж</th>
+                                    <th>Колличество</th>
+                                    <th>Дата добавления</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.CartridgeName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.IncomeQuantity)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.AddedDate)</td>
+                                    <td>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        @if (User.IsInRole("admin"))
+                                        {
+                                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                            <a data-toggle="modal" href="#" data-id="@item.Id" data-target="#modal-action-function" class="btn btn-danger deleteCartridgeIncomeModal">
+                                                <i class="c-icon cil-trash">Удалить</i>
+                                            </a>
+                                        </div>
+                                        }
+                                    }
+                                    </td>
+                                </tr>
+}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-function", AreaLabeledId = "modal-action-function-label", Size = ModalSize.Large })
+
+@section scripts
+    {
+    <script>
+        $('#createCartridgeIncomeModal').click(function (e) {
+            e.preventDefault();
+            $('#modal-content').load('@Url.Action("AddCartridgeIncome", "CartridgeIncome")');
+        });
+        $('.deleteCartridgeIncomeModal').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            name = encodeURIComponent(id);
+            $('#modal-content').load('@Url.Action("DeleteCartridgeIncome", "CartridgeIncome")?id=' + id);
+        });
+
+        var sortType = $('#sortType').attr("data-sortType");
+
+        switch (sortType) {
+            case "0":
+                $('#sortType-0').attr("selected", "selected");
+                break;
+            case "1":
+                $('#sortType-1').attr("selected", "selected");
+                break;
+        }
+    </script>
+}
+

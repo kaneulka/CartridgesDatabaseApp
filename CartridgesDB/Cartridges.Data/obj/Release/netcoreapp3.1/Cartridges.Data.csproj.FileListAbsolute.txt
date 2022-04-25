@@ -1,0 +1,12 @@
+D:\Cartridges\Cartridges.Data\bin\Release\netcoreapp3.1\Cartridges.Data.deps.json
+D:\Cartridges\Cartridges.Data\bin\Release\netcoreapp3.1\Cartridges.Data.runtimeconfig.json
+D:\Cartridges\Cartridges.Data\bin\Release\netcoreapp3.1\Cartridges.Data.runtimeconfig.dev.json
+D:\Cartridges\Cartridges.Data\bin\Release\netcoreapp3.1\Cartridges.Data.dll
+D:\Cartridges\Cartridges.Data\bin\Release\netcoreapp3.1\Cartridges.Data.pdb
+D:\Cartridges\Cartridges.Data\obj\Release\netcoreapp3.1\Cartridges.Data.csprojAssemblyReference.cache
+D:\Cartridges\Cartridges.Data\obj\Release\netcoreapp3.1\Cartridges.Data.AssemblyInfoInputs.cache
+D:\Cartridges\Cartridges.Data\obj\Release\netcoreapp3.1\Cartridges.Data.AssemblyInfo.cs
+D:\Cartridges\Cartridges.Data\obj\Release\netcoreapp3.1\Cartridges.Data.csproj.CoreCompileInputs.cache
+D:\Cartridges\Cartridges.Data\obj\Release\netcoreapp3.1\Cartridges.Data.dll
+D:\Cartridges\Cartridges.Data\obj\Release\netcoreapp3.1\Cartridges.Data.pdb
+D:\Cartridges\Cartridges.Data\obj\Release\netcoreapp3.1\Cartridges.Data.genruntimeconfig.cache

@@ -1,0 +1,13 @@
+﻿@model CartridgeIncomeViewModel
+@using Cartridges.Web.Models.ViewModel
+@using Cartridges.Web.Models
+
+<form asp-action="DeleteCartridgeIncome" role="form">
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Удалить поставку?" })
+
+    <div class="modal-body">
+        <input asp-for="Id" />
+        Вы уверены, что хотите удалить @Model.Name?
+    </div>
+    @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Удалить" })
+</form>

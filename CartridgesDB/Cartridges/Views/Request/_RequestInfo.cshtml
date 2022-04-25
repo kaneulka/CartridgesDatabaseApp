@@ -1,0 +1,41 @@
+﻿@model RequestViewModel
+@using Cartridges.Web.Models.ViewModel
+@using Cartridges.Web.Models
+
+@await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Подробная информация о служебке" })
+<div class="modal-body">
+    <h3>@Model.Name</h3>
+    <div class="row">
+        <div class="col-12">
+            <div class="product__info">
+                <div id="description" class="description description_active">
+                    <div class="product__group">
+                        <strong>Отдел: </strong><span id="article-name">@Model.DepartmentName</span>
+                    </div>
+                    <div class="product__group">
+                        <strong>Помещение: </strong><span id="article-name">@Model.BuildingName-@Model.Room</span>
+                    </div>
+                    <div class="product__group">
+                        <strong>Принтер: </strong><span id="article-name">@Model.PrinterModelName </span>
+                    </div>
+                    <div class="product__group">
+                        <strong>Инвентарный номер принтера: </strong><span id="article-name">@Model.InventoryNumber</span>
+                    </div>
+                    <div class="product__group">
+                        <strong>Картридж: </strong><span id="article-name">@Model.CartridgeModelName</span>
+                    </div>
+                    <div class="product__group">
+                        <strong>Номенклатурный номер и счет: </strong><span id="article-name">@Model.CartridgeNomNum</span>
+                    </div>
+                    @if (Model.Defective == true)
+            {
+                    <div class="product__group">
+                        <strong>Картридж неисправен</strong>
+                    </div>
+            }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@await Html.PartialAsync("_ModalFooter", new ModalFooter { })

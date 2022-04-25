@@ -1,0 +1,54 @@
+﻿@model ReportModel
+@using Cartridges.Web.Models
+@{ ViewData["Title"] = "Работа с данными";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+<div class="container-fluid">
+    <h4>Получить данные</h4>
+    <div class="row">
+        <div class="col-12">
+            <form class="col-lg-6" asp-action="DatabaseReportForLastMonth" asp-controller="Report" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-pill">За последний Месяц</button>
+                </div>
+            </form>
+            <form class="col-lg-6" asp-action="DatabaseReportForLastYear" asp-controller="Report" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger btn-pill">За последний Год</button>
+                </div>
+            </form>
+            <form class="col-lg-6" asp-action="GlobalDatabaseReport" asp-controller="Report" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info btn-pill">Текущие данные</button>
+                </div>
+            </form>
+        </div>
+        <hr />
+        <form asp-action="DatabaseReport" role="form">
+            <div class="modal-body form-horizontal">
+                <h4>Получить данные за введеное время</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group col-12">
+                            <div>
+                                <span asp-validation-for="StartedRange"></span><br />
+                                <label asp-for="StartedRange"></label>
+                                <input asp-for="StartedRange" class="form-control" />
+                            </div>
+                            <div>
+                                <span asp-validation-for="EndedRange"></span><br />
+                                <label asp-for="EndedRange"></label>
+                                <input asp-for="EndedRange" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-dark btn-pill btn-sm btnSearch">
+                        <i class="c-icon cil-search">Сгенерировать</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

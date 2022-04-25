@@ -1,0 +1,129 @@
+﻿@model List<AccountViewModel>
+@using Cartridges.Web.Models.AccountModels
+@using Cartridges.Web.Code
+@using Cartridges.Web.Models.ViewModel
+
+@{ ViewData["Title"] = "Пользователи";
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+    int sortType = 0; }
+
+<div class="container-fluid">
+    <div class="fade-in">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"><h1>Пользователи</h1></div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-lg-3">
+                                <a id="createUserModal" data-toggle="modal" href="#" data-target="#modal-action-function" class="btn btn-pill btn-block btn-primary">
+                                    Добавить пользователя
+                                </a>
+                            </div>
+                            <div class="col-lg-6">
+                                <form asp-controller="User" asp-action="Users" method="get" class="form-inline">
+                                    <div class="form-group mb-0 mr-3">
+                                        <select name="sortType" id="sortType" class="form-control" data-sortType="@ViewBag.SortType">
+                                            <option id="sortType-0" value="0">По имени</option>
+                                            <option id="sortType-1" value="1">По имени (в обратном порядке)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <button type="submit" class="btn btn-dark btn-pill btn-sm btnSearch">
+                                            <i class="c-icon cil-search">Сортировка</i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-lg-3">
+                                    <a asp-controller="Account" asp-action="YourAccount" class="btn btn-pill btn-block btn-outline-primary">
+                                        <i class="c-icon cil-list">Профиль учетной записи</i>
+                                    </a> 
+                            </div>
+                        </div>
+                        <table class="table table-responsive-sm table-bordered table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Имя пользователя</th>
+                                    <th>Действие</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                <a data-toggle="modal" href="#" data-id="@item.Id" data-target="#modal-action-function" class="btn btn-dark editUserModal">
+                                    <i class="c-icon cil-pencil">Редактировать</i>
+                                </a>
+                                <a data-toggle="modal" href="#" data-id="@item.Id" data-target="#modal-action-function" class="btn btn-success changePasswordUserModal">
+                                    <i class="c-icon cil-keyboard">Сменить пароль</i>
+                                </a>
+                                <a data-toggle="modal" href="#" data-id="@item.Id" data-target="#modal-action-function" class="btn btn-danger deleteUserModal">
+                                    <i class="c-icon cil-trash">Удалить</i>
+                                </a>
+                                <a data-toggle="modal" href="#" data-id="@item.Id" data-target="#modal-action-function" class="d-flex align-items-center btn btn-dark editUserRoleModal">
+                                    <i class="c-icon cil-user-follow mr-2">Права доступа</i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-function", AreaLabeledId = "modal-action-function-label", Size = ModalSize.Large })
+
+@section scripts
+    {
+    <script>
+        $('#createUserModal').click(function (e) {
+            e.preventDefault();
+            $('#modal-content').load('@Url.Action("Register", "Account")');
+        });
+        $('.editUserModal').click(function (e) {
+            e.preventDefault();
+            var userId = $(this).attr("data-id");
+            name = encodeURIComponent(userId);
+            $('#modal-content').load('@Url.Action("EditUser", "Account")?id=' + userId);
+        });
+        $('.deleteUserModal').click(function (e) {
+            e.preventDefault();
+            var userId = $(this).attr("data-id");
+            name = encodeURIComponent(userId);
+            $('#modal-content').load('@Url.Action("DeleteUser", "Account")?id=' + userId);
+        });
+        $('.changePasswordUserModal').click(function (e) {
+            e.preventDefault();
+            var userId = $(this).attr("data-id");
+            name = encodeURIComponent(userId);
+            $('#modal-content').load('@Url.Action("ChangePassword", "Account")?id=' + userId);
+        });
+
+        $('.editUserRoleModal').click(function (e) {
+            e.preventDefault();
+            var userId = $(this).attr("data-id");
+            name = encodeURIComponent(userId);
+            $('#modal-content').load('@Url.Action("EditUserRoles", "Account")?userId=' + userId);
+        });
+
+        var sortType = $('#sortType').attr("data-sortType");
+
+        switch (sortType) {
+            case "0":
+                $('#sortType-0').attr("selected", "selected");
+                break;
+            case "1":
+                $('#sortType-1').attr("selected", "selected");
+                break;
+        }
+    </script>
+}
+

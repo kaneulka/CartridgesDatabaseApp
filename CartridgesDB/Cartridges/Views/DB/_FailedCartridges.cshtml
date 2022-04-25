@@ -1,0 +1,15 @@
+﻿@model List<string>
+@using Cartridges.Web.Models.ViewModel
+
+@Html.Partial("_ModalHeader", new ModalHeader { Heading = "Удалить модель картриджа?" })
+
+<div class="modal-body">
+    <h3>Следующие картриджы не были обновлены:</h3>
+    <ul>
+        @foreach (var c in Model)
+        {
+            <li>@c</li>
+        }
+    </ul>
+</div>
+@Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Удалить" })

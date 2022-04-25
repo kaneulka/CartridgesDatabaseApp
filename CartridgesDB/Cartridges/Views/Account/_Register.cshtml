@@ -1,0 +1,29 @@
+﻿@model Cartridges.Web.Models.AccountModels.RegisterViewModel
+
+@using Cartridges.Web.Models.ViewModel
+
+<form asp-action="Register" role="form">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Регистрация пользователя" })
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <span asp-validation-for="UserName"></span><br />
+                    <label asp-for="UserName"></label>
+                    <input asp-for="UserName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="Password"></span><br />
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="PasswordConfirm"></span><br />
+                    <label asp-for="PasswordConfirm"></label>
+                    <input asp-for="PasswordConfirm" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>
